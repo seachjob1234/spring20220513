@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choong.spr.mapper.Ex02Mapper">
+	<insert id="insertReply">
+		INSERT INTO Reply (board_id, content, inserted)
+		VALUES (#{boardId}, #{content}, #{inserted} )
+
+	</insert>
+
+	<select id="selectReplyByBoardId"
+		resultType="com.choong.spr.domain.ex01.ReplyDto">
+
+		SELECT id id,
+		board_id boardId,
+		content content,
+		inserted
+		inserted
+		FROM Reply
+		WHERE board_id = #{boardId}
+		ORDER BY id
+
+	</select>
+
+
+
+	<delete id="deleteReplyById">
+		DELETE FROM Reply
+		WHERE id = #{id }
+	</delete>
+
+
+
+	<update id="updateReply">
+		UPDATE Reply
+		SET content = #{content}
+		WHERE id = #{id}
+	</update>
+	<delete id="deleteReplyByBoard">
+		DELETE FROM Reply
+		WHERE board_id=#{board.id}
+	</delete>
+
+
+
+</mapper>
