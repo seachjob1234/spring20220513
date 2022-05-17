@@ -24,30 +24,41 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:url value="/ex01/board1/write" var="writeLink"></c:url>
-	<h1>
-		<a href="${writeLink }">글 쓰기</a>
-	</h1>
-	<h1>글 목록</h1>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>id</th>
-				<th>title</th>
-				<th>inserted</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${boardList }" var="board">
-				<tr>
-					<td>${board.id }</td>
-					<td>
-						<c:url value="/ex01/board1/${board.id }" var="link"></c:url>
-						<a href="${link }"> ${board.title } </a>
-						<td>${board.inserted }</td>		
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h1>글목록</h1>
+				<c:url value="/ex01/board1/write" var="writeLink"></c:url>
+				<h1>
+					<a href="${writeLink }">글 쓰기</a>
+				</h1>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>번호</th>
+							<th>제목</th>
+							<th>시간</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${boardList }" var="board">
+							<tr>
+								<td>${board.id }</td>
+								<td><c:url value="/ex01/board1/${board.id }" var="link"></c:url>
+									<a href="${link }"> ${board.title } </a> <c:if
+										test="${board.numOfReply > 0  }">
+														[${board.numOfReply }]
+					</c:if></td>
+								<td>${board.inserted }</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	
+
 </body>
 </html>

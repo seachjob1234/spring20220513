@@ -12,5 +12,7 @@ public class BoardDto {
 	private String body;
 	private LocalDateTime inserted;	
 	
+	private int numOfReply;
+	
 
 }
