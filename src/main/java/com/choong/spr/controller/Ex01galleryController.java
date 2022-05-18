@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.choong.spr.domain.ex01.BoardDto;
 import com.choong.spr.domain.ex01.ReplyDto;
@@ -25,11 +26,16 @@ public class Ex01galleryController {
 	private Ex02Service service1;
 
 	@RequestMapping("board1/list")
-	public void listBoard(Model model) {
-
-		List<BoardDto> list = service.listTrainingBoard();
+	public void listBoard(@RequestParam(defaultValue = "1") int page, Model model) {
+		
+		
+		List<BoardDto> list = service.listTrainingBoard(page);
+		int total = service.getTotalBoardCount();
 
 		model.addAttribute("boardList", list);
+		model.addAttribute("endPage",(total-1)/10+1);
+		model.addAttribute("currentPage",page);
+		model.addAttribute("startPage",(page-1)/10*10+1);
 
 		System.out.println(list.size());
 
@@ -89,7 +95,7 @@ public class Ex01galleryController {
 
 		}
 
-		return "redirect:/ex01/board1/" + board.getId();
+		return "redirect:/ex01/board1/list";
 
 	}
 

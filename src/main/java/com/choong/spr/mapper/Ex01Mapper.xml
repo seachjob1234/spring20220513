@@ -13,12 +13,17 @@
 		r.board_id
 		GROUP BY b.id
 		ORDER BY id DESC
+		LIMIT #{from},10
+
+
+
 	</select>
 	<select id="selertGetBoard"
 		resultType="com.choong.spr.domain.ex01.BoardDto">
-		SELECT id, title, body, inserted
-		FROM Board
-		WHERE id = #{id}
+		SELECT b.id, b.title, b.body, b.inserted, count(r.id) numOfReply
+		FROM Board b left join Reply r on b.id = r.board_id
+		WHERE b.id = #{id}
+		group by b.id 
 	</select>
 
 	<update id="insertUpdateBoard">
@@ -29,16 +34,25 @@
 		id = #{id}
 	</update>
 
-  <delete id="deleteboard">
-  	DELETE FROM Board
-  	WHERE id = #{id}
-  </delete>
-  <insert id="insertBoard" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-  INSERT INTO Board(title,body,inserted)
-  VALUES (#{title},#{body},#{inserted})
-  
-  
-  </insert>
+	<delete id="deleteboard">
+		DELETE FROM Board
+		WHERE id = #{id}
+	</delete>
+	<insert id="insertBoard" useGeneratedKeys="true" keyColumn="id"
+		keyProperty="id">
+		INSERT INTO Board(title,body,inserted)
+		VALUES (#{title},#{body},#{inserted})
+
+
+	</insert>
+	<select  id="totalBoard" resultType="int">
+
+		select count(*) from Board
+
+
+
+
+	</select>
 
 
 </mapper>

@@ -19,9 +19,9 @@ public class Ex01Service {
 	private Ex02Mapper replyMapper;
 	
 
-	public List<BoardDto> listTrainingBoard() {
+	public List<BoardDto> listTrainingBoard(int page) {
 		// TODO Auto-generated method stub
-		return mapper.insertTrainingBoard();
+		return mapper.insertTrainingBoard((page -1)*10);
 	}
 
 	public BoardDto getBoard(int id) {
@@ -59,5 +59,12 @@ public class Ex01Service {
 		return cnt == 1;
 
 	}
+
+	public int getTotalBoardCount() {
+		return	mapper.totalBoard();
+		
+	}
+
+	
 
 }

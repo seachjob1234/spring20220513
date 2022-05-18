@@ -24,15 +24,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<my:navBar />
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1>글목록</h1>
-				<c:url value="/ex01/board1/write" var="writeLink"></c:url>
-				<h1>
-					<a href="${writeLink }">글 쓰기</a>
-				</h1>
+				<h1 class="text-left">놀이터</h1>
 				<table class="table">
 					<thead>
 						<tr>
@@ -45,20 +41,46 @@
 						<c:forEach items="${boardList }" var="board">
 							<tr>
 								<td>${board.id }</td>
-								<td><c:url value="/ex01/board1/${board.id }" var="link"></c:url>
-									<a href="${link }"> ${board.title } </a> <c:if
-										test="${board.numOfReply > 0  }">
+								<td>
+									<c:url value="/ex01/board1/${board.id }" var="link"></c:url>
+									<a href="${link }"> ${board.title } </a>
+									<c:if test="${board.numOfReply > 0  }">
 														[${board.numOfReply }]
-					</c:if></td>
+									</c:if>
+								</td>
 								<td>${board.inserted }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
+				<nav>
+					<ul class="pagination justify-content-center">
+
+						<li class="page-item">
+							<a class="page-link" href= "http://localhost:8080/spr/ex01/board1/list?page=${currentPage-1 }">
+								<span>&laquo;</span>
+							</a>
+						</li>
+
+						<c:forEach begin="${startPage }" end="${endPage }" var="pageNum">
+
+							<a
+								href="http://localhost:8080/spr/ex01/board1/list?page=${pageNum }">${pageNum }</a>
+						</c:forEach>
+						<li class="page-item">
+							<a class="page-link" href= "http://localhost:8080/spr/ex01/board1/list?page=${currentPage+1 }">
+								<span>&raquo;</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+				<c:url value="/ex01/board1/write" var="writeLink"></c:url>
+				<h1>
+					<a href="${writeLink }" class="btn btn=defalt">글 쓰기</a>
+				</h1>	
 			</div>
 		</div>
 	</div>
-	
 
 </body>
 </html>

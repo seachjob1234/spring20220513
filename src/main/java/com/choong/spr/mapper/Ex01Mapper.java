@@ -6,7 +6,7 @@ import com.choong.spr.domain.ex01.BoardDto;
 
 public interface Ex01Mapper {
 
-	List<BoardDto> insertTrainingBoard();
+	List<BoardDto> insertTrainingBoard(int from);
 
 	BoardDto selertGetBoard(int id);
 
@@ -15,5 +15,7 @@ public interface Ex01Mapper {
 	int deleteboard(int id);
 
 	int insertBoard(BoardDto board);
+	
+	int totalBoard();
 
 }

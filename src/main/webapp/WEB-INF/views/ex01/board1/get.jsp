@@ -71,13 +71,15 @@
 	});
 </script>
 <body>
+	<my:navBar></my:navBar>
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1>글 본문</h1>
-				<button id="edit-button1" class="btn btn-secondary">
-					<i class="fa-solid fa-pen-to-square"></i>
-				</button>
+				<h1>
+					글 본문
+					<button id="edit-button1" class="btn btn-secondary">
+						<i class="fa-solid fa-pen-to-square"></i>
+					</button>
 				</h1>
 
 				<c:if test="${not empty param.success }">
@@ -89,28 +91,30 @@
 					</c:if>
 				</c:if>
 
-
 				<c:url value="/ex01/board/modify" var="modifyLink"></c:url>
-				<h1>${board1.id }번게시물</h1>
+
 				<div>
 					<form id="form1" action="${modifyLink }" method="post">
-						<input type="hidden" name="id" value="${board1.id }" /> 제목 : <input
-							type="text" value="${board1.title }" name="title" /> <br /> 본문:
-						<textarea cols="30" rows="10" name="body">${board1.body }</textarea>
-						<br />
-
-
+						<input type="hidden" name="id" value="${board1.id }" />
 						<div>
-							<label for="input2" class="form-label"> 작성일시 :</label> <input
-								type="datetime-local" value="${board1.inserted }" readonly /> <br />
+							<label class="form-label" for="input1">제목 </label>
+							<input class="form-control" type="text" value="${board1.title }"
+								name="title" required id="input1" readonly />
 						</div>
-
-
-
-
-
-						<button id="modify-submit1" class="btn btn-primary">수정</button>
-						<button id="delete-submit1" class="btn btn-danger">삭제</button>
+						<br />
+						<div>
+							<label class="form-label" for="textarea1">본문</label>
+							<textarea class="form-control" id="textarea1" cols="30" rows="10"
+								name="body" readonly>${board1.body }</textarea>
+						</div>
+						<br />
+						<div>
+							<label for="input2" class="form-label"> 작성일시 :</label>
+							<input type="datetime-local" value="${board1.inserted }" readonly />
+							<br />
+						</div>
+						<button id="modify-submit1" class="btn btn-primary d-none">수정</button>
+						<button id="delete-submit1" class="btn btn-danger d-none">삭제</button>
 					</form>
 
 				</div>
@@ -124,12 +128,15 @@
 				<div class="col">
 					<c:url value="/ex02/reply/add" var="replyAddLink" />
 					<form action="${replyAddLink }" method="post">
-						<input type="hidden" name="boardId" value="${board1.id }" /> 댓글 :
-						<input type="text" name="content" size="50" />
+						<div class="input-group">
+							<input type="hidden" name="boardId" value="${board1.id }" />
 
-						<button class="btn btn-outline-secondary">
-							<i class="fa-solid fa-comment-dots"></i>
-						</button>
+							<input class="form-control" type="text" name="content" required />
+
+							<button class="btn btn-outline-secondary">
+								<i class="fa-solid fa-comment-dots"></i>
+							</button>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -139,39 +146,55 @@
 			<div class="row">
 				<div class="col">
 					<h3>댓글 ${board1.numOfReply } 개</h3>
+					
 					<ul class="list-group">
 						<c:forEach items="${replyList }" var="reply">
 							<li class="list-group-item">
+								<div id="replyDisplayContainer${reply.id }">
+									<div class="fw-bold">
+										<i class="fa-solid fa-comment"></i>
+										${reply.inserted }
+									</div>
+									${reply.content}
+									<button class="reply-edit-toggle-button"
+										id="replyEditToggleButton${reply.id }"
+										data-reply-id="${reply.id }">
+										<i class="fa-solid fa-pen-to-square"></i>
+									</button>
 
-								<div style="border: 1px solid black; margin-bottom: 3px;">
-									${reply.inserted } :
-
+									<button class="reply-delete-button"
+										data-reply-id="${reply.id }">
+										<i class="fa-solid fa-trash-can"></i>
+									</button>
+								</div>
+								<div id="replyEditFormContainer${reply.id }" style="display: none;">
 									<c:url value="/ex02/reply/modify" var="replyModifyLink" />
 									<form action="${replyModifyLink }" method="post">
-										<input type="hidden" value="${reply.id }" name="id" /> <input
-											type="hidden" name="boardId" value="${board1.id }" /> <input
-											type="text" value="${reply.content }" name="content" />
-										<button>수정</button>
+										<div class="input-group">
+											<input type="hidden" name="replyid" value="${reply.id }" />
+											<input type="hidden" name="boardId" value="${board1.id }" />
+											<input class="form-control" value="${reply.content }"
+												type="text" name="content" required />
+											<button class="btn btn-outline-secondary">
+												<i class="fa-solid fa-comment-dots"></i>
+											</button>
+										</div>
 									</form>
+								</div>
 							</li>
 						</c:forEach>
 					</ul>
 				</div>
 			</div>
 		</div>
-
-
-		<c:url value="/ex02/reply/remove" var="replyRemoveLink" />
-		<form action="${replyRemoveLink }" method="post">
-			<input type="hidden" name="id" value="${reply.id }" /> <input
-				type="hidden" name="boardId" value="${board1.id }" />
-			<button>삭제</button>
-		</form>
-
-	</div>
-	</div>
-	</div>
-
+		<div class="d-none">
+			<c:url value="/ex02/reply/remove" var="replyRemoveLink" />
+			<form id="replyDeleteForm1" action="${replyRemoveLink }" method="post">
+				<input id ="replyDeleteInput1" type="hidden" name="id" />
+				<input type="hidden" name="boardId" value="${board1.id }" />
+				<button>삭제</button>
+			</form>
+		</div>
 </body>
 
 </html>
