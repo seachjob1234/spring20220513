@@ -35,7 +35,7 @@ public class Ex01Service {
 
 		int cnt = mapper.insertUpdateBoard(board);
 
-		return false;
+		return cnt == 1;
 	}
 	
 	
@@ -65,6 +65,8 @@ public class Ex01Service {
 		
 	}
 
+	
+	
 	
 
 }

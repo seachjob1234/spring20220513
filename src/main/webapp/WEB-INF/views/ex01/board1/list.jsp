@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags/"%>
 <%
 	request.setCharacterEncoding("utf-8");
 %>
@@ -24,11 +25,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<my:navBar />
+	<my:ex01tags />
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1 class="text-left">놀이터</h1>
+
+				<h1 class="text-center">놀이터</h1>
 				<table class="table">
 					<thead>
 						<tr>
@@ -41,46 +43,59 @@
 						<c:forEach items="${boardList }" var="board">
 							<tr>
 								<td>${board.id }</td>
-								<td>
-									<c:url value="/ex01/board1/${board.id }" var="link"></c:url>
-									<a href="${link }"> ${board.title } </a>
-									<c:if test="${board.numOfReply > 0  }">
+								<td><c:url value="/ex01/board1/${board.id }" var="link"></c:url>
+									<a href="${link }"> ${board.title } </a> <c:if
+										test="${board.numOfReply > 0  }">
 														[${board.numOfReply }]
-									</c:if>
-								</td>
+									</c:if></td>
 								<td>${board.inserted }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
+
+
+
 				<nav>
 					<ul class="pagination justify-content-center">
 
-						<li class="page-item">
-							<a class="page-link" href= "http://localhost:8080/spr/ex01/board1/list?page=${currentPage-1 }">
+						<li class="page-item"><a class="page-link"
+							href="http://localhost:8080/spr/ex01/board1/list?page=${currentPage-1 }">
 								<span>&laquo;</span>
-							</a>
-						</li>
+						</a></li>
 
 						<c:forEach begin="${startPage }" end="${endPage }" var="pageNum">
 
 							<a
 								href="http://localhost:8080/spr/ex01/board1/list?page=${pageNum }">${pageNum }</a>
 						</c:forEach>
-						<li class="page-item">
-							<a class="page-link" href= "http://localhost:8080/spr/ex01/board1/list?page=${currentPage+1 }">
+						<li class="page-item"><a class="page-link"
+							href="http://localhost:8080/spr/ex01/board1/list?page=${currentPage+1 }">
 								<span>&raquo;</span>
-							</a>
-						</li>
+						</a></li>
 					</ul>
 				</nav>
-				<c:url value="/ex01/board1/write" var="writeLink"></c:url>
-				<h1>
-					<a href="${writeLink }" class="btn btn=defalt">글 쓰기</a>
-				</h1>	
+
 			</div>
 		</div>
 	</div>
+<%-- 	<ul class="pagination justify-content-center">
+		<!-- li.page-item>a.page-link>span{&laquo;} -->
 
+		<c:if test="${prevPage >= 1 }">
+			<li class="page-item"><a class="page-link"
+				href="S14Servlet19?page=${prevPage }"> <span>&laquo;</span>
+			</a></li>
+		</c:if>
+		<c:forEach begin="${startPage }" end="${endPage }" var="pageNum">
+			<li class="page-item ${pageNum == currentPage ? 'active' : '' }">
+				<a href="S14Servlet19?page=${pageNum }" class="page-link">${pageNum }</a>
+			</li>
+		</c:forEach>
+		<!-- li.page-item>a>span{&raquo;} -->
+
+		<c:if test="${endPage != lastPage }">
+			<li class="page-item"><a class="page-link"
+				href="S14Servlet19?page=${nextPage }"> <span>&raquo;</span>--%>
 </body>
 </html>

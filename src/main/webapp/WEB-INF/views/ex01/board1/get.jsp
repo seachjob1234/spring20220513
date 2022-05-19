@@ -5,6 +5,7 @@
 <%
 	request.setCharacterEncoding("utf-8");
 %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags/"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +25,7 @@
 <title>Insert title here</title>
 </head>
 <script>
+
 	$(document).ready(function() {
 		$("#edit-button1").click(function() {
 			$("#input1").removeAttr("readonly");
@@ -71,7 +73,7 @@
 	});
 </script>
 <body>
-	<my:navBar></my:navBar>
+	<my:ex01tags></my:ex01tags>
 	<div class="container">
 		<div class="row">
 			<div class="col">
@@ -90,6 +92,7 @@
 						<div class="alert alert-danger">게시물 수정 중 문제가 발생하였습니다.</div>
 					</c:if>
 				</c:if>
+		
 
 				<c:url value="/ex01/board/modify" var="modifyLink"></c:url>
 

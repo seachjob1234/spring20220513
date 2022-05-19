@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choong.spr.domain.ex01.BoardDto;
 import com.choong.spr.domain.ex01.ReplyDto;
@@ -36,7 +37,9 @@ public class Ex01galleryController {
 		model.addAttribute("endPage",(total-1)/10+1);
 		model.addAttribute("currentPage",page);
 		model.addAttribute("startPage",(page-1)/10*10+1);
-
+		model.addAttribute("prevPage", startPage - 10);
+		model.addAttribute("nextPage", startPage + 10);
+		model.addAttribute("lastPage", lastPage);
 		System.out.println(list.size());
 
 	}
@@ -58,13 +61,13 @@ public class Ex01galleryController {
 	}
 
 	@PostMapping("board/modify")
-	public String modifyBoard(BoardDto board) {
+	public String modifyBoard(BoardDto board, RedirectAttributes rttr) {
 
 		boolean success = service.updateBoard(board);
 		if (success) {
-
+			rttr.addAttribute("success", true);
 		} else {
-
+			rttr.addAttribute("success", false);
 		}
 		return "redirect:/ex01/board1/" + board.getId();
 
@@ -98,5 +101,6 @@ public class Ex01galleryController {
 		return "redirect:/ex01/board1/list";
 
 	}
+	
 
 }

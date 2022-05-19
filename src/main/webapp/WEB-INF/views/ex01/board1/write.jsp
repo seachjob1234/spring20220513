@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="my"  tagdir = "/WEB-INF/tags/" %>
 <%
 	request.setCharacterEncoding("utf-8");
 %>
@@ -24,7 +25,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<my:navBar current="write"></my:navBar>
+<my:ex01tags current="write"></my:ex01tags>
 	<div class="container">
 		<div class="row">
 			<div class="col">
@@ -39,6 +40,7 @@
 						<input class= "form-control" type="text" name="title" value="새 제목" repuired id="input1" /> <br />
 
 					</div>
+					네 테그 누르면 오류가 뜹니다.
 
 					<div>
 						<label for="textareal1">본문 </label> 
@@ -50,4 +52,5 @@
 		</div>
 	</div>
 </body>
+
 </html>
