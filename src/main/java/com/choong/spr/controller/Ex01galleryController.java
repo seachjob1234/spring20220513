@@ -37,9 +37,7 @@ public class Ex01galleryController {
 		model.addAttribute("endPage",(total-1)/10+1);
 		model.addAttribute("currentPage",page);
 		model.addAttribute("startPage",(page-1)/10*10+1);
-		model.addAttribute("prevPage", startPage - 10);
-		model.addAttribute("nextPage", startPage + 10);
-		model.addAttribute("lastPage", lastPage);
+	
 		System.out.println(list.size());
 
 	}
