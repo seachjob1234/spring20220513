@@ -30,6 +30,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
+			<c:if test="${not empty message }">
+					<div class="alert alert-primary">
+						${message }
+					</div>
+				</c:if>
 
 				<h1 class="text-center">놀이터</h1>
 				<table class="table">

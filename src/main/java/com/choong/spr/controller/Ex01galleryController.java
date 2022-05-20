@@ -74,12 +74,12 @@ public class Ex01galleryController {
 	}
 
 	@PostMapping("board/remove")
-	public String removeBoard(int id) {
+	public String removeBoard(int id, RedirectAttributes rttr) {
 		boolean success = service.removeBoardById(id);
 		if (success) {
-
+			rttr.addFlashAttribute("message", "글이 삭제 되었습니다.");
 		} else {
-
+			rttr.addFlashAttribute("message", "글이 삭제 되지않았습니다.");
 		}
 		return "redirect:/ex01/board1/list";
 	}
@@ -90,12 +90,12 @@ public class Ex01galleryController {
 	}
 
 	@PostMapping("board/write")
-	public String writeBoardProcess(BoardDto board) {
+	public String writeBoardProcess(BoardDto board,RedirectAttributes rttr) {
 		boolean success = service.addBoard(board);
 		if (success) {
-
+			rttr.addFlashAttribute("message", "새 글이 등록되었습니다.");
 		} else {
-
+			rttr.addFlashAttribute("message", "새 글이 등록되지 않았습니다.");
 		}
 
 		return "redirect:/ex01/board1/list";
