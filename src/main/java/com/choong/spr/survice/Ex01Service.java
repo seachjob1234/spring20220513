@@ -19,9 +19,9 @@ public class Ex01Service {
 	private Ex02Mapper replyMapper;
 	
 
-	public List<BoardDto> listTrainingBoard(int page) {
+	public List<BoardDto> listTrainingBoard(String type, String keyword, int page) {
 		// TODO Auto-generated method stub
-		return mapper.insertTrainingBoard((page -1)*10);
+		return mapper.insertTrainingBoard(type, "%" + keyword + "%",(page -1)*10);
 	}
 
 	public BoardDto getBoard(int id) {

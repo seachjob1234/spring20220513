@@ -41,7 +41,7 @@
 						<input class= "form-control" type="text" name="title" value="새 제목" repuired id="input1" /> <br />
 
 					</div>
-					네 테그 누르면 오류가 뜹니다.
+		
 
 					<div>
 						<label for="textareal1">본문 </label> 

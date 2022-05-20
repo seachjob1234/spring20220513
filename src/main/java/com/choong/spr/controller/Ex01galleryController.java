@@ -27,12 +27,14 @@ public class Ex01galleryController {
 	private Ex02Service service1;
 
 	@RequestMapping("board1/list")
-	public void listBoard(@RequestParam(defaultValue = "1") int page, Model model) {
+	public void listBoard(@RequestParam(name = "keyword", defaultValue = "")String keyword,
+			 @RequestParam(name ="type", defaultValue = "" ) String type,@RequestParam(defaultValue = "1") int page, Model model) {
 		
 		
-		List<BoardDto> list = service.listTrainingBoard(page);
+		List<BoardDto> list = service.listTrainingBoard(type, keyword, page);
 		int total = service.getTotalBoardCount();
-
+		
+		
 		model.addAttribute("boardList", list);
 		model.addAttribute("endPage",(total-1)/10+1);
 		model.addAttribute("currentPage",page);
